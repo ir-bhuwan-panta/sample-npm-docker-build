@@ -12,7 +12,7 @@ jobs:
     steps:
       # ============= InvisiRisk Setup =============
       - name: Setup PSE
-        uses: ir-kkisalaya/pse-action@latest
+        uses: ir-kkisalaya/pse-action@1.0
         with:
           app_token: ${{secrets.IR_API_KEY}}
           mode: 'docker-intercept'
@@ -37,7 +37,7 @@ jobs:
       # ============= InvisiRisk Cleanup =============
       - name: Cleanup PSE
         if: always()
-        uses: ir-kkisalaya/pse-action@latest
+        uses: ir-kkisalaya/pse-action@1.0
         with:
           cleanup: "true"
       # ============= InvisiRisk Cleanup End =============

@@ -15,7 +15,7 @@ jobs:
     steps:
       # ============= InvisiRisk Setup =============
       - name: Setup PSE
-        uses: ir-kkisalaya/pse-action@1.1
+        uses: invisirisk/pse-action@develop
         with:
           api_url: ${{env.IR_API_URL}}
           app_token: ${{secrets.IR_API_KEY}}
@@ -42,7 +42,7 @@ jobs:
       # ============= InvisiRisk Cleanup =============
       - name: Cleanup PSE
         if: always()
-        uses: ir-kkisalaya/pse-action@1.1
+        uses: invisirisk/pse-action@develop
         with:
           cleanup: "true"
           debug: true

@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      IR_API_URL: "https://app.stage.invisirisk.com"
+      IR_API_URL: "https://app.dev.invisirisk.com"
 
     steps:
       # ============= InvisiRisk Setup =============
@@ -18,7 +18,7 @@ jobs:
         uses: invisirisk/pse-action@develop
         with:
           api_url: ${{env.IR_API_URL}}
-          app_token: ${{secrets.IR_API_KEY}}
+          app_token: ${{secrets.IR_API_KEY_DEV}}
           mode: 'docker-intercept'
           debug: true
       # ============= InvisiRisk Setup End =============

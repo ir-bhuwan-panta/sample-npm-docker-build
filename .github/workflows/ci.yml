@@ -45,6 +45,5 @@ jobs:
         uses: invisirisk/pse-action@develop
         with:
           cleanup: "true"
-          debug: true
       # ============= InvisiRisk Cleanup End =============
 

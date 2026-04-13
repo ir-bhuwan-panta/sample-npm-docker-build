@@ -7,7 +7,8 @@ RUN apk add --no-cache \
     g++ \
     curl \
     git \
-    vips-dev
+    vips-dev \
+    jq
 
 WORKDIR /app
 

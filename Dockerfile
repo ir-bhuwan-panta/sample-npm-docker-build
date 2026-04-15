@@ -9,7 +9,7 @@ RUN apk add --no-cache \
     git \
     vips-dev
 
-# WORKDIR /app
+WORKDIR /app
 
 # Copy dependency files first
 COPY package*.json tsconfig.json ./

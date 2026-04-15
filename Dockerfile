@@ -4,12 +4,10 @@ FROM node:20-alpine
 RUN apk add --no-cache \
     python3 \
     make \
-    bash \
     g++ \
     curl \
     git \
-    vips-dev \
-    jq
+    vips-dev
 
 # WORKDIR /app
 

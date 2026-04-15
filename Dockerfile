@@ -10,7 +10,7 @@ RUN apk add --no-cache \
     vips-dev \
     jq
 
-WORKDIR /app
+# WORKDIR /app
 
 # Copy dependency files first
 COPY package*.json tsconfig.json ./

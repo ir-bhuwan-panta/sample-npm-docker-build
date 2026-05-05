@@ -19,7 +19,7 @@ jobs:
         with:
           api_url: ${{env.IR_API_URL}}
           app_token: ${{secrets.IR_API_KEY_DEV}}
-          mode: 'docker-intercept'
+          mode: sidecar
           debug: true
       # ============= InvisiRisk Setup End =============
       - name: Checkout repo

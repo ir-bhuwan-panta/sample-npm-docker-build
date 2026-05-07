@@ -36,12 +36,6 @@ jobs:
 
       - name: Cache cargo registry + build
         uses: actions/cache@v4
-        with:
-          path: |
-            ~/.cargo/registry
-            ~/.cargo/git
-            target
-          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
       - name: Fetch Rust dependencies
         run: cargo fetch --locked

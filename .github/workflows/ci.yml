@@ -36,9 +36,26 @@ jobs:
 
       # - name: Build (host)
       #   run: npm run build
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver-opts: |
+            network=host
+      
+      - name: Docker build through PSE frontend
+        run: |
+          docker buildx build \
+            --progress=plain \
+            --no-cache \
+            --build-arg BUILDKIT_SYNTAX=public.ecr.aws/w3c0c0n7/invisirisk/baf-buildkit:latest \
+            --build-arg PSE_PROXY="http://${PSE_PROXY_IP}:3128" \
+            --build-arg PSE_VERBOSE=true \
+            --secret id=pse-ca,src="${PSE_CA_CERT_PATH}" \
+            -t sample-npm-docker-build \
+            .
 
-      - name: Build Docker image
-        run: BUILDKIT=1 docker build -t sample-npm-docker --build-arg BUILDKIT_SYNTAX=public.ecr.aws/w3c0c0n7/invisirisk/baf-buildkit:latest --secret id=pse-ca,src=/etc/ssl/certs/pse.pem  --build-arg PSE_PROXY=http://${PSE_PROXY_IP}:3128 .
+      # - name: Build Docker image
+      #   run: BUILDKIT=1 docker build -t sample-npm-docker --build-arg BUILDKIT_SYNTAX=public.ecr.aws/w3c0c0n7/invisirisk/baf-buildkit:latest --secret id=pse-ca,src=/etc/ssl/certs/pse.pem  --build-arg PSE_PROXY=http://${PSE_PROXY_IP}:3128 .
 
       # # ============= InvisiRisk Cleanup =============
       # - name: Cleanup PSE

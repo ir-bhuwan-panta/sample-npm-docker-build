@@ -43,16 +43,7 @@ jobs:
       #       network=host
       
       - name: Docker build through PSE frontend
-        run: |
-          docker buildx build \
-            --progress=plain \
-            --no-cache \
-            --build-arg BUILDKIT_SYNTAX=public.ecr.aws/w3c0c0n7/invisirisk/baf-buildkit:latest \
-            --build-arg PSE_PROXY="http://${PSE_PROXY_IP}:3128" \
-            --build-arg PSE_VERBOSE=true \
-            --secret id=pse-ca,src="${PSE_CA_CERT_PATH}" \
-            -t sample-npm-docker-build \
-            .
+        run: BUILDKIT=1 docker build -t sample-npm-docker --build-arg BUILDKIT_SYNTAX=kkisalaya/pse-frontend:1.4.3 --secret id=pse-ca,src=/etc/ssl/certs/pse.pem  --build-arg PSE_PROXY=http://${PSE_PROXY_IP}:3128 --build-arg PSE_SKIP_OS_PKG_PROXY=false .
 
       # - name: Build Docker image
       #   run: BUILDKIT=1 docker build -t sample-npm-docker --build-arg BUILDKIT_SYNTAX=public.ecr.aws/w3c0c0n7/invisirisk/baf-buildkit:latest --secret id=pse-ca,src=/etc/ssl/certs/pse.pem  --build-arg PSE_PROXY=http://${PSE_PROXY_IP}:3128 .

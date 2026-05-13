@@ -15,11 +15,11 @@ jobs:
     steps:
       # ============= InvisiRisk Setup =============
       - name: Setup PSE
-        uses: invisirisk/pse-action@feat/use-pse-data-collector
+        uses: invisirisk/pse-action@feature/intermediate-deno-rust-ca-devtest
         with:
           api_url: ${{env.IR_API_URL}}
           app_token: ${{secrets.IR_API_KEY_DEV}}
-          mode: sidecar
+          # mode: sidecar
           pse_image_tag: dev-test
           debug: true
       # ============= InvisiRisk Setup End =============
@@ -49,11 +49,11 @@ jobs:
         run: BUILDKIT=1 docker build -t sample-npm-docker --build-arg BUILDKIT_SYNTAX=public.ecr.aws/w3c0c0n7/invisirisk/baf-buildkit:latest --secret id=pse-ca,src=/etc/ssl/certs/pse.pem  --build-arg PSE_PROXY=http://${PSE_PROXY_IP}:3128 .
 
       # # ============= InvisiRisk Cleanup =============
-      # - name: Cleanup PSE
-      #   if: always()
-      #   uses: invisirisk/pse-action@latest
-      #   with:
-      #     cleanup: "true"
-      #     debug: true
+      - name: Cleanup PSE
+        if: always()
+        uses: invisirisk/pse-action@feature/intermediate-deno-rust-ca-devtest
+        with:
+          cleanup: "true"
+          debug: true
       # # ============= InvisiRisk Cleanup End =============
 

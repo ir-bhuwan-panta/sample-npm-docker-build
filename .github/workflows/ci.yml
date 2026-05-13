@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      IR_API_URL: "https://app.dev.invisirisk.com"
+      IR_API_URL: "https://app.stage.invisirisk.com"
 
     steps:
       # ============= InvisiRisk Setup =============
@@ -18,7 +18,7 @@ jobs:
         uses: invisirisk/pse-action@feature/intermediate-deno-rust-ca-devtest
         with:
           api_url: ${{env.IR_API_URL}}
-          app_token: ${{secrets.IR_API_KEY_DEV}}
+          app_token: ${{secrets.IR_API_KEY_STAGE}}
           mode: docker-intercept
           pse_image_tag: dev-test
           debug: true

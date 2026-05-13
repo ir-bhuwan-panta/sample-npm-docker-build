@@ -10,17 +10,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      IR_API_URL: "https://app.stage.invisirisk.com"
+      IR_API_URL: "https://app.dev.invisirisk.com"
 
     steps:
       # ============= InvisiRisk Setup =============
       - name: Setup PSE
-        uses: invisirisk/pse-action@latest
+        uses: invisirisk/pse-action@feat/use-pse-data-collector
         with:
           api_url: ${{env.IR_API_URL}}
-          app_token: ${{secrets.IR_API_KEY_STAGE}}
+          app_token: ${{secrets.IR_API_KEY_DEV}}
           # mode: docker-intercept
-          # pse_image_tag: dev-test
+          pse_image_tag: dev-test
           debug: true
       # ============= InvisiRisk Setup End =============
       - name: Checkout repo

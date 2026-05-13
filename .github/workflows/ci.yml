@@ -49,11 +49,11 @@ jobs:
         run: BUILDKIT=1 docker build -t sample-npm-docker --build-arg BUILDKIT_SYNTAX=public.ecr.aws/w3c0c0n7/invisirisk/baf-buildkit:latest --secret id=pse-ca,src=/etc/ssl/certs/pse.pem  --build-arg PSE_PROXY=http://${PSE_PROXY_IP}:3128 .
 
       # # ============= InvisiRisk Cleanup =============
-      - name: Cleanup PSE
-        if: always()
-        uses: invisirisk/pse-action@latest
-        with:
-          cleanup: "true"
-          debug: true
+      # - name: Cleanup PSE
+      #   if: always()
+      #   uses: invisirisk/pse-action@latest
+      #   with:
+      #     cleanup: "true"
+      #     debug: true
       # # ============= InvisiRisk Cleanup End =============
 

@@ -48,17 +48,20 @@ jobs:
       #   run: BUILDKIT=1 docker build -t sample-npm-docker --build-arg BUILDKIT_SYNTAX=kkisalaya/pse-frontend:1.4.3 --secret id=pse-ca,src=/etc/ssl/certs/pse.pem  --build-arg PSE_PROXY=http://${PSE_PROXY_IP}:3128 --build-arg PSE_SKIP_OS_PKG_PROXY=false .
       # - name: Build Docker image simple
       #   run: BUILDKIT=1 docker build -t sample-npm-docker --build-arg BUILDKIT_SYNTAX=public.ecr.aws/w3c0c0n7/invisirisk/baf-buildkit:dev-test --secret id=pse-ca,src=/etc/ssl/certs/pse.pem  --build-arg PSE_PROXY=http://${PSE_PROXY_IP}:3128 .
-      - name: Build Docker image(action)
-        uses: docker/build-push-action@v7
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
         with:
           context: .
           tags: sample-npm-docker
-          push: false  # Set to true if you want to push to a registry later
+          push: false
           build-args: |
-            BUILDKIT_SYNTAX=public.ecr.aws/w3c0c0n7/invisirisk/baf-buildkit:latest
+            BUILDKIT_SYNTAX=public.ecr.aws/w3c0c0n7/invisirisk/baf-buildkit:dev-test
             PSE_PROXY=http://${{ env.PSE_PROXY_IP }}:3128
+            http_proxy=http://${{ env.PSE_PROXY_IP }}:3128
+            https_proxy=http://${{ env.PSE_PROXY_IP }}:3128
+          # Pass the secret as a raw string block rather than a host file reference
           secrets: |
-            "pse-ca=/etc/ssl/certs/pse.pem"
+            "pse-ca=${{ env.CA_CERT_CONTENT }}"
 
       # # ============= InvisiRisk Cleanup =============
       - name: Cleanup PSE

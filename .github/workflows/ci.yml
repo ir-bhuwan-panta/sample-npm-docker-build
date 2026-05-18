@@ -61,7 +61,7 @@ jobs:
             https_proxy=http://${{ env.PSE_PROXY_IP }}:3128
           # Pass the secret as a raw string block rather than a host file reference
           secrets: |
-            "pse-ca=${{ env.CA_CERT_CONTENT }}"
+            "pse-ca=/etc/ssl/certs/pse.pem
 
       # # ============= InvisiRisk Cleanup =============
       - name: Cleanup PSE

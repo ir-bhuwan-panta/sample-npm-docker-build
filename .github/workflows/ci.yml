@@ -48,27 +48,27 @@ jobs:
       
       # - name: Docker build through PSE frontend
       #   run: BUILDKIT=1 docker build -t sample-npm-docker --build-arg BUILDKIT_SYNTAX=kkisalaya/pse-frontend:1.4.3 --secret id=pse-ca,src=/etc/ssl/certs/pse.pem  --build-arg PSE_PROXY=http://${PSE_PROXY_IP}:3128 --build-arg PSE_SKIP_OS_PKG_PROXY=false .
-      # - name: Build Docker image simple
-      #   run: BUILDKIT=1 docker build -t sample-npm-docker --build-arg BUILDKIT_SYNTAX=public.ecr.aws/w3c0c0n7/invisirisk/baf-buildkit:dev-test --secret id=pse-ca,src=/etc/ssl/certs/pse.pem  --build-arg PSE_PROXY=http://${PSE_PROXY_IP}:3128 .
-  
-      - name: Build Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: .
-          push: false
-          tags: sample-npm-docker
-          build-args: |
-            BUILDKIT_SYNTAX=public.ecr.aws/w3c0c0n7/invisirisk/baf-buildkit:latest
-            PSE_PROXY=http://${{ env.PSE_PROXY_IP }}:3128
-          secret-files: |
-            pse-ca=/etc/ssl/certs/pse.pem
+      - name: Build Docker image simple
+        run: BUILDKIT=1 docker build -t sample-npm-docker --build-arg BUILDKIT_SYNTAX=public.ecr.aws/w3c0c0n7/invisirisk/baf-buildkit:dev-test --secret id=pse-ca,src=/etc/ssl/certs/pse.pem  --build-arg PSE_PROXY=http://${PSE_PROXY_IP}:3128 .
+      
+      # - name: Build Docker image
+      #   uses: docker/build-push-action@v5
+      #   with:
+      #     context: .
+      #     push: false
+      #     tags: sample-npm-docker
+      #     build-args: |
+      #       BUILDKIT_SYNTAX=public.ecr.aws/w3c0c0n7/invisirisk/baf-buildkit:latest
+      #       PSE_PROXY=http://${{ env.PSE_PROXY_IP }}:3128
+      #     secret-files: |
+      #       pse-ca=/etc/ssl/certs/pse.pem
 
       # # ============= InvisiRisk Cleanup =============
       # - name: Cleanup PSE
       #   if: always()
       #   uses: invisirisk/pse-action@feature/intermediate-deno-rust-ca-devtest
       #   with:
-          cleanup: "true"
-          debug: true
+          # cleanup: "true"
+          # debug: true
       # # ============= InvisiRisk Cleanup End =============
 

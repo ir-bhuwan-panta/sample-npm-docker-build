@@ -22,6 +22,7 @@ jobs:
           api_url: ${{env.IR_API_URL}}
           app_token: ${{secrets.IR_API_KEY_DEV}}
           mode: sidecar
+          debug: true
           pse_image_tag: dev-test
           # debug: true
       # ============= InvisiRisk Setup End =============

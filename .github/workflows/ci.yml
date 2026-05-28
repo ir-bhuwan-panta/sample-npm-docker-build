@@ -38,11 +38,11 @@ jobs:
 
       # - name: Build (host)
       #   run: npm run build
-      # - name: Set up Docker Buildx
-      #   uses: docker/setup-buildx-action@v3
-      #   with:
-      #     driver-opts: |
-      #       network=host
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          driver-opts: |
+            network=host
       
       # - name: Docker build through PSE frontend
       #   run: BUILDKIT=1 docker build -t sample-npm-docker --build-arg BUILDKIT_SYNTAX=kkisalaya/pse-frontend:1.4.3 --secret id=pse-ca,src=/etc/ssl/certs/pse.pem  --build-arg PSE_PROXY=http://${PSE_PROXY_IP}:3128 --build-arg PSE_SKIP_OS_PKG_PROXY=false .

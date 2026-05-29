@@ -69,7 +69,7 @@ jobs:
             BUILDKIT_SYNTAX=public.ecr.aws/w3c0c0n7/invisirisk/baf-buildkit:latest
             PSE_PROXY=http://${{ env.PSE_PROXY_IP }}:3128
           secret-files: |
-            pse-ca=/etc/ssl/certs/pse.pem
+            pse-ca=${{env.PSE_CERT_PATH}}
 
       # # ============= InvisiRisk Cleanup =============
       # - name: Cleanup PSE

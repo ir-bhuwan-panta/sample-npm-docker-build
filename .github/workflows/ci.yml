@@ -39,6 +39,15 @@ jobs:
 
       # - name: Build (host)
       #   run: npm run build
+      
+      - name: Verify Docker trust before Buildx
+        run: |
+          echo "PSE_DOCKER_CERT_REGISTRIES=$PSE_DOCKER_CERT_REGISTRIES"
+          sudo ls -l /etc/docker/certs.d/registry-1.docker.io
+          sudo sed -n '1,2p' /etc/docker/certs.d/registry-1.docker.io/ca.crt >/dev/null
+          sudo systemctl status docker --no-pager || true
+          docker info >/dev/null
+          
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
         with:
